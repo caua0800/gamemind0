@@ -1,0 +1,161 @@
+    /* 🎨 Estilos aprimorados - Interface Moderna Windows Style */
+/* 🎮 Tema Gamer Neon - by Caua Martins & Rafael Vlademir */
+
+/* Fundo com imagem de jogo + efeito gradiente neon */
+/* 🎮 Tema Gamer Neon - GameMind Style by Caua Martins & Rafael Vlademir */
+
+/* 🌌 Fundo gamer com gradiente e brilho */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: 
+        linear-gradient(rgba(5, 10, 30, 0.85), rgba(10, 20, 50, 0.9)),
+        url('https://images.unsplash.com/photo-1606813902787-4f2c6f23a0eb?auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    color: #fff;
+}
+
+/* 🧱 Container */
+.container {
+    background: rgba(10, 10, 25, 0.85);
+    padding: 50px;
+    border-radius: 22px;
+    box-shadow: 0 0 35px rgba(0, 200, 255, 0.45), inset 0 0 20px rgba(0, 150, 255, 0.25);
+    width: 100%;
+    max-width: 950px;
+    border: 2px solid rgba(0, 200, 255, 0.6);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* ✨ Animação suave */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🧭 Título principal */
+h1 {
+    color: #00e6ff;
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: 38px;
+    letter-spacing: 1.2px;
+    text-shadow: 0 0 15px #00ffff, 0 0 30px #0099ff;
+}
+
+/* 🔹 Subtítulo pequeno logo abaixo do título */
+h2 {
+    color: #a8eaff;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 400;
+    margin-bottom: 35px;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+}
+
+/* 🏷️ Rótulos */
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #a8eaff;
+}
+
+/* 📝 Área de texto — bem maior e mais larga */
+textarea {
+    width: 100%;
+    height: 280px; /* 🔥 altura aumentada */
+    padding: 20px;
+    margin-bottom: 30px;
+    border: 2px solid #00bfff;
+    border-radius: 16px;
+    box-sizing: border-box;
+    resize: vertical;
+    font-size: 18px;
+    font-family: 'Consolas', monospace;
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #e6faff;
+    transition: all 0.4s ease;
+    box-shadow: inset 0 0 20px rgba(0, 150, 255, 0.4);
+}
+
+textarea:focus {
+    border-color: #00ffff;
+    box-shadow: 0 0 25px #00ffff, inset 0 0 18px rgba(0, 255, 255, 0.25);
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* 🔘 Botão com efeito neon gamer */
+button {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, #00bfff, #005eff);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 22px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 25px rgba(0, 150, 255, 0.6);
+}
+
+button:hover {
+    background: linear-gradient(135deg, #00ffff, #0078ff);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.9), 0 0 50px rgba(0, 150, 255, 0.7);
+    transform: scale(1.05);
+}
+
+button:disabled {
+    background: #666;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* 💬 Área de resposta */
+#resposta-container {
+    margin-top: 40px;
+    padding: 25px;
+    background-color: rgba(0, 40, 60, 0.7);
+    border: 1px solid #00bfff;
+    border-radius: 14px;
+    box-shadow: inset 0 0 18px rgba(0, 255, 255, 0.25);
+}
+
+#resposta-container h2 {
+    color: #00e0ff;
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px #00ffff;
+    text-align: left;
+}
+
+#resposta-texto {
+    white-space: pre-wrap;
+    color: #e6faff;
+    line-height: 1.8;
+    font-size: 18px;
+}
+
+/* ⚠️ Mensagem de erro */
+.error {
+    color: #ff8080;
+    background-color: rgba(60, 0, 0, 0.7);
+    border: 1px solid #ff4c4c;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 25px;
+    box-shadow: 0 0 15px rgba(255, 80, 80, 0.5);
+}

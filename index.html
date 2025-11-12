@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>🎾 Assistente sobre jogos - Gemini API</title>
+    <style>
+   
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🎾 Assistente sobre jogos de video game</h1>
+        <h2>Autores: Cauã e Rafael Clademir</h2>
+
+        <label for="pergunta">Faça sua pergunta jogos:</label>
+        <textarea id="pergunta" rows="4" placeholder="Ex: Ultima atualização do GTA ONLINE?"></textarea>
+
+        <button id="enviar-btn" onclick="enviarPergunta()">Enviar Pergunta</button>
+
+        <p class="error" id="erro-msg" style="display: none;"></p>
+
+        <div id="resposta-container" style="display: none;">
+            <h2>Resposta da IA:</h2>
+            <p id="resposta-texto">...</p>
+        </div>
+    </div>
+
+    <script>
+        // Configurações da API (Fornecidas pelo usuário)
+        const API_KEY = "AIzaSyBwG0JF0wMLHL88FrHIyW4X3K-b4Nw489Q";
+       const API_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+
+        const perguntaInput = document.getElementById('pergunta');
+        const respostaTexto = document.getElementById('resposta-texto');
+        const respostaContainer = document.getElementById('resposta-container');
+        const enviarBtn = document.getElementById('enviar-btn');
+        const erroMsg = document.getElementById('erro-msg');
+
+        /**
+         * Envia a pergunta do usuário para a API da IA do Gemini.
+         */
+        async function enviarPergunta() {
+            const pergunta = perguntaInput.value.trim();
+            erroMsg.style.display = 'none';
+
+            if (pergunta === "") {
+                alert("Por favor, digite uma pergunta sobre Jogos.");
+                return;
+            }
+
+            // Desabilita o botão e mostra que está carregando
+            enviarBtn.disabled = true;
+            enviarBtn.textContent = "🎾 Processando...";
+            respostaContainer.style.display = 'none';
+            respostaTexto.textContent = "Aguardando resposta da IA...";
+            respostaContainer.style.display = 'block';
+
+            try {
+                // Monta o prompt, incentivando a IA a focar no tema Tênis.
+                const promptCompleto = `A seguir está uma pergunta sobre jogos de video game . Responda de forma direta e informativa: "${pergunta}"`;
+
+                // Estrutura do payload, baseada na requisição cURL fornecida.
+                const payload = {
+                    "contents": [
+                        {
+                            "parts": [
+                                {
+                                    "text": promptCompleto
+                                }
+                            ]
+                        }
+                    ],
+                    // Configurações adicionais
+                    "generationConfig": {
+                         "temperature": 0.5 // Ajuste a criatividade (0.0 a 1.0)
+                    }
+                };
+                
+                // URL com a chave de API como header X-goog-api-key, conforme a requisição cURL
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-goog-api-key': API_KEY // A chave de API no header
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    // Tenta ler o erro do corpo da resposta, se possível
+                    let errorBody = await response.text();
+                    try {
+                        errorBody = JSON.parse(errorBody);
+                        errorBody = errorBody.error.message || response.statusText;
+                    } catch (e) {
+                        errorBody = response.statusText;
+                    }
+                    throw new Error(`Erro ${response.status}: ${errorBody}`);
+                }
+
+                const data = await response.json();
+                
+                // Extrai o texto de resposta específico da estrutura da API Gemini
+                const respostaDaIA = data.candidates && 
+                                     data.candidates[0] && 
+                                     data.candidates[0].content && 
+                                     data.candidates[0].content.parts && 
+                                     data.candidates[0].content.parts[0] && 
+                                     data.candidates[0].content.parts[0].text;
+                
+                if (respostaDaIA) {
+                    respostaTexto.textContent = respostaDaIA;
+                } else {
+                    // Caso a resposta da IA esteja vazia ou com erro de block
+                    throw new Error("Resposta da IA vazia. Possível erro de segurança ou conteúdo bloqueado.");
+                }
+
+            } catch (error) {
+                console.error("Erro na comunicação com a API:", error);
+                erroMsg.textContent = `❌ Falha ao obter resposta: ${error.message}. Por favor, verifique se a chave de API está ativa e se possui créditos.`;
+                erroMsg.style.display = 'block';
+                respostaTexto.textContent = "Não foi possível obter a resposta da IA.";
+            } finally {
+                // Restaura o botão
+                enviarBtn.disabled = false;
+                enviarBtn.textContent = "Enviar Pergunta";
+            }
+        }
+    </script>
+
+</body>
+</html>
